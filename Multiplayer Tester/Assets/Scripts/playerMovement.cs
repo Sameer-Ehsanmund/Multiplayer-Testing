@@ -4,29 +4,44 @@ using UnityEngine;
 
 public class playerMovement : MonoBehaviour
 {
+
     public CharacterController cc;
 
-    Vector3 direction;
+    Vector3 velocity;
 
-    [SerializeField] private float speed;
+    private float speed = 12.0f;
+    private float gravity = -20.0f;
+    private float jumpHeight = 3.0f;
+
+    private bool groundedPlayer;
 
     void Update()
     {
 
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        direction = new Vector3(horizontal, 0f, vertical).normalized;
+        groundedPlayer = cc.isGrounded;
 
-        if (direction.magnitude >= 0.1f)
+        if (groundedPlayer && velocity.y < 0)
         {
 
-            cc.SimpleMove(direction * speed * Time.deltaTime);
+            velocity.y = 0f;
         }
 
-        if (direction.magnitude <= 0.1f)
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        cc.Move(move * Time.deltaTime * speed);
+
+        if (move != Vector3.zero)
         {
 
-            cc.SimpleMove(direction * speed * Time.deltaTime);
+            gameObject.transform.forward = move;
         }
+
+        if (Input.GetButtonDown("Jump") && groundedPlayer)
+        {
+
+            velocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+        }
+
+        velocity.y += gravity * Time.deltaTime;
+        cc.Move(velocity * Time.deltaTime);
     }
 }

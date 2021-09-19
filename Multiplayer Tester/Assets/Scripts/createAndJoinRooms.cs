@@ -20,7 +20,7 @@ public class createAndJoinRooms : MonoBehaviourPunCallbacks
     public void joinRoom()
     {
 
-        PhotonNetwork.CreateRoom(joinInput.text);
+        PhotonNetwork.JoinRoom(joinInput.text);
     }
 
     public override void OnJoinedRoom()
