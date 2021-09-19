@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class playerMovement : MonoBehaviour
 {
@@ -15,33 +16,45 @@ public class playerMovement : MonoBehaviour
 
     private bool groundedPlayer;
 
+    PhotonView phV;
+
+    void Start()
+    {
+
+        phV = GetComponent<PhotonView>();
+    }
+
     void Update()
     {
 
-        groundedPlayer = cc.isGrounded;
-
-        if (groundedPlayer && velocity.y < 0)
+        if (phV.IsMine)
         {
 
-            velocity.y = 0f;
-        }
+            groundedPlayer = cc.isGrounded;
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        cc.Move(move * Time.deltaTime * speed);
+            if (groundedPlayer && velocity.y < 0)
+            {
 
-        if (move != Vector3.zero)
-        {
+                velocity.y = 0f;
+            }
 
-            gameObject.transform.forward = move;
-        }
+            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            cc.Move(move * Time.deltaTime * speed);
 
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
-        {
+            if (move != Vector3.zero)
+            {
 
-            velocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
-        }
+                gameObject.transform.forward = move;
+            }
 
-        velocity.y += gravity * Time.deltaTime;
-        cc.Move(velocity * Time.deltaTime);
+            if (Input.GetButtonDown("Jump") && groundedPlayer)
+            {
+
+                velocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+            }
+
+            velocity.y += gravity * Time.deltaTime;
+            cc.Move(velocity * Time.deltaTime);
+        }       
     }
 }
