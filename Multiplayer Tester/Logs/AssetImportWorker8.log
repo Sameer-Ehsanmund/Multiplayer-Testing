@@ -223,3 +223,10 @@ AssetImportParameters requested are different than current active one (requested
   custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 1134.089733 seconds.
+  path: Assets/Scripts/connectToServers.cs
+  artifactKey: Guid(40fe3f94a9002c64bb48361f5518ef19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/connectToServers.cs using Guid(40fe3f94a9002c64bb48361f5518ef19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd7f614bb73a70102ef9db4ed572d0774') in 0.341895 seconds 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
