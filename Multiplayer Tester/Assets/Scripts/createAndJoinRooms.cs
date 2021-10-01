@@ -10,6 +10,13 @@ public class createAndJoinRooms : MonoBehaviourPunCallbacks
 
     public InputField createInput;
     public InputField joinInput;
+    public InputField usernameInput;
+
+    public GameObject joiningFailedText;
+    public GameObject startButton;
+    public GameObject usernamePanel;
+    public GameObject createJoinPanel;
+    
 
     public void createRoom()
     {
@@ -27,5 +34,34 @@ public class createAndJoinRooms : MonoBehaviourPunCallbacks
     {
 
         PhotonNetwork.LoadLevel("Game");
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+
+        joiningFailedText.SetActive(true);
+    }
+
+    public void settingUsername()
+    {
+
+        if (usernameInput.text.Length >= 3)
+        {
+
+            startButton.SetActive(true);
+        }
+        else
+        {
+
+            startButton.SetActive(false);
+        }
+    }
+
+    public void onStart()
+    {
+
+        usernamePanel.SetActive(false);
+        createJoinPanel.SetActive(true);
+        PhotonNetwork.NickName = usernameInput.text;
     }
 }
